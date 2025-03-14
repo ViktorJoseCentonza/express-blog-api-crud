@@ -6,17 +6,17 @@ const posts_controller = require('../controllers/posts_controller')
 router.get("/", posts_controller.index)
 
 //show
-router.get("/:id", posts_controller.show)
+router.get("/:slug", posts_controller.show)
 //store
-router.post("/:id", posts_controller.store)
+router.post("/:slug", posts_controller.store)
 
 //update
-router.put("/:id", posts_controller.update)
+router.put("/:slug", posts_controller.update)
 
 //modify
-router.patch("/:id", posts_controller.modify)
+router.patch("/:slug", posts_controller.modify)
 
 //destroy
-router.delete("/:id", posts_controller.destroy)
+router.delete("/:slug", posts_controller.destroy)
 
 module.exports = router;
