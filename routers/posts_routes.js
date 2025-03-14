@@ -2,11 +2,12 @@ const express = require('express')
 const router = express.Router()
 const posts_controller = require('../controllers/posts_controller')
 
-//index
-router.get("/", posts_controller.index)
+//filteredindex
+router.get("/", posts_controller.tagFilter)
 
 //show
 router.get("/:slug", posts_controller.show)
+
 //store
 router.post("/:slug", posts_controller.store)
 

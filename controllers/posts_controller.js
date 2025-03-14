@@ -1,7 +1,19 @@
 const posts_data = require('../data/posts_data')
 
-function index(req, res) {
-    res.json(posts_data)
+function tagFilter(req, res) {
+    let filteredPosts = posts_data
+    if (req.query.tags) {
+        filteredPosts = posts_data.filter(post => post.tags.includes(req.query.tags))
+    }
+    if (filteredPosts == '') {
+        res.status(404).json({
+            error: '404 not found',
+            message: 'no post with those tags was found!'
+        })
+    } else {
+        res.json(filteredPosts);
+    }
+
 }
 
 function show(req, res) {
@@ -54,8 +66,8 @@ function destroy(req, res) {
 }
 
 module.exports = {
-    index,
     show,
+    tagFilter,
     store,
     update,
     modify,
