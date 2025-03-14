@@ -1,43 +1,22 @@
 const express = require('express')
 const router = express.Router()
-
+const posts_controller = require('../controllers/posts_controller')
 
 //index
-router.get("/", (req, res) => {
-    res.send("all posts")
-    console.log("sent all posts");
-
-})
+router.get("/", posts_controller.index)
 
 //show
-router.get("/:id", (req, res) => {
-    const postId = req.params.id
-    res.send(`post with id: ${postId}`)
-    console.log(`sent post with id ${postId}`);
-
-})
+router.get("/:id", posts_controller.show)
 //store
-router.post("/:id", (req, res) => {
-    const postId = req.params.id
-    res.send(`add new post with id: ${postId}`)
-})
+router.post("/:id", posts_controller.store)
 
 //update
-router.put("/:id", (req, res) => {
-    const postId = req.params.id
-    res.send(`update post with id: ${postId}`)
-})
+router.put("/:id", posts_controller.update)
 
 //modify
-router.patch("/:id", (req, res) => {
-    const postId = req.params.id
-    res.send(`edit post with id: ${postId}`)
-})
+router.patch("/:id", posts_controller.modify)
 
 //destroy
-router.delete("/:id", (req, res) => {
-    const postId = req.params.id
-    res.send(`delete post with id: ${postId}`)
-})
+router.delete("/:id", posts_controller.destroy)
 
 module.exports = router;
