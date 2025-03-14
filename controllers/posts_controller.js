@@ -40,9 +40,17 @@ function destroy(req, res) {
 
     const postIndex = posts_data.findIndex(post => post.slug == postSlug);
     console.log(postIndex)
-    posts_data.splice(postIndex, 1)
-    console.log(posts_data)
-    res.send("204")
+    if (postIndex === -1) {
+        res.status(404).json({
+            error: '404 not found',
+            message: 'Post not found'
+        })
+    } else {
+        posts_data.splice(postIndex, 1)
+        console.log(posts_data)
+        res.status(204).send()
+    }
+
 }
 
 module.exports = {
