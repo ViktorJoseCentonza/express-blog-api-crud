@@ -1,5 +1,14 @@
 const posts_data = require('../data/posts_data')
 
+const slugify = str =>
+    str
+        .toLowerCase()
+        .trim()
+        .replace(/[^\w\s-]/g, '')
+        .replace(/[\s_-]+/g, '-')
+        .replace(/^-+|-+$/g, '');
+
+
 function tagFilter(req, res) {
     let filteredPosts = posts_data
     if (req.query.tags) {
@@ -31,13 +40,13 @@ function show(req, res) {
 }
 
 function store(req, res) {
-
-    const slugCheck = posts_data.find(post => post.slug === req.body.slug);
+    const slug = slugify(req.body.title)
+    const slugCheck = posts_data.find(post => post.slug === slug);
     console.log(slugCheck)
 
     const newPost = {
         title: req.body.title,
-        slug: req.body.slug,
+        slug: slug,
         content: req.body.content,
         image: req.body.image,
         tags: req.body.tags,
@@ -60,7 +69,10 @@ function store(req, res) {
 }
 
 function update(req, res) {
-    const post = posts_data.find(post => post.slug === req.body.slug);
+    const slug = req.params.slug
+
+    const post = posts_data.find(post => post.slug === slug);
+
     if (!post) {
         res.status(404);
         return res.json({
@@ -70,7 +82,7 @@ function update(req, res) {
     }
 
     post.title = req.body.title
-    //post.slug = req.body.slug //using this as ID so not changing it
+    post.slug = slug
     post.content = req.body.content
     post.image = req.body.image
     post.tags = req.body.tags

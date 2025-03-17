@@ -12,7 +12,7 @@ router.get("/:slug", posts_controller.show)
 router.post("/", posts_controller.store)
 
 //update
-router.put("/", posts_controller.update)
+router.put("/:slug", posts_controller.update)
 
 //modify
 router.patch("/:slug", posts_controller.modify)
