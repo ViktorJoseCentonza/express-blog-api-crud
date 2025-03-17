@@ -9,10 +9,10 @@ router.get("/", posts_controller.tagFilter)
 router.get("/:slug", posts_controller.show)
 
 //store
-router.post("/:slug", posts_controller.store)
+router.post("/", posts_controller.store)
 
 //update
-router.put("/:slug", posts_controller.update)
+router.put("/", posts_controller.update)
 
 //modify
 router.patch("/:slug", posts_controller.modify)

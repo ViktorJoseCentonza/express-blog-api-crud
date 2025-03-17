@@ -31,13 +31,52 @@ function show(req, res) {
 }
 
 function store(req, res) {
-    const postSlug = req.params.slug
-    res.send(`add new post with slug: ${postSlug}`)
+
+    const slugCheck = posts_data.find(post => post.slug === req.body.slug);
+    console.log(slugCheck)
+
+    const newPost = {
+        title: req.body.title,
+        slug: req.body.slug,
+        content: req.body.content,
+        image: req.body.image,
+        tags: req.body.tags,
+    }
+    posts_data.push(newPost);
+
+
+    if (slugCheck) {
+        res.status(404);
+        return res.json({
+            error: "slug already present",
+            message: "slug repetition detected"
+        })
+    } else {
+        res.status(201);
+        res.json(newPost);
+    }
+
+    console.log(posts_data)
 }
 
 function update(req, res) {
-    const postSlug = req.params.slug
-    res.send(`update post with slug: ${postSlug}`)
+    const post = posts_data.find(post => post.slug === req.body.slug);
+    if (!post) {
+        res.status(404);
+        return res.json({
+            error: "Not Found",
+            message: "post non trovato"
+        })
+    }
+
+    post.title = req.body.title
+    //post.slug = req.body.slug //using this as ID so not changing it
+    post.content = req.body.content
+    post.image = req.body.image
+    post.tags = req.body.tags
+    console.log(posts_data)
+
+    res.json(post);
 }
 
 function modify(req, res) {
