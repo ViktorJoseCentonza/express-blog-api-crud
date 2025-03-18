@@ -44,6 +44,14 @@ function store(req, res) {
     const slugCheck = posts_data.find(post => post.slug === slug);
     console.log(slugCheck)
 
+    if (slugCheck) {
+        res.status(404);
+        return res.json({
+            error: "slug already present",
+            message: "slug repetition detected"
+        })
+    }
+
     const newPost = {
         title: req.body.title,
         slug: slug,
@@ -52,20 +60,10 @@ function store(req, res) {
         tags: req.body.tags,
     }
     posts_data.push(newPost);
-
-
-    if (slugCheck) {
-        res.status(404);
-        return res.json({
-            error: "slug already present",
-            message: "slug repetition detected"
-        })
-    } else {
-        res.status(201);
-        res.json(newPost);
-    }
-
     console.log(posts_data)
+
+    res.status(201);
+    res.json(newPost);
 }
 
 function update(req, res) {
