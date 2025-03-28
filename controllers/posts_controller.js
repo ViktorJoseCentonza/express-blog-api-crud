@@ -109,7 +109,13 @@ function destroy(req, res) {
     } else {
         posts_data.splice(postIndex, 1)
         console.log(posts_data)
-        res.status(204).send()
+        console.log(`post ${postIndex} deleted!`)
+        // res.send("vaffanculo")
+        res.status(204).json(
+            {
+                message: 'Success!'
+            }
+        )
     }
 
 }
