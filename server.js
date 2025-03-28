@@ -1,11 +1,15 @@
 const express = require('express');
 const app = express();
+const cors = require('cors')
 const port = 3000;
 const posts_routes = require('./routers/posts_routes')
 const errorsHandler = require('./middlewares/errors')
 const notFound = require('./middlewares/error404')
 app.use(express.json());
 
+app.use(cors({
+    origin: 'http://localhost:5173'
+}))
 app.listen(port, () => {
     console.log(`server listening on http:/localhost:${port}`)
 })
